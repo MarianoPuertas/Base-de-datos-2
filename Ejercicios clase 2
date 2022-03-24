@@ -18,7 +18,7 @@ CREATE TABLE film_actor (
 	actor_id INT NOT NULL
 );
 
-#----#
+
 
 ALTER TABLE film 
 	ADD COLUMN last_update TIMESTAMP 
@@ -32,14 +32,14 @@ ALTER TABLE actor
 		ON UPDATE CURRENT_TIMESTAMP
 ;
 
-#----#
+
 	
 ALTER TABLE film_actor 
 	ADD FOREIGN KEY (film_id) REFERENCES film(film_id), 
 	ADD FOREIGN KEY (actor_id) REFERENCES actor(actor_id)
 ;
 
-#----#
+
 
 INSERT INTO film (title, description, release_year) VALUES 
 	('Star Wars', 'Descripcion de Star Wars', '1977-01-01'), 
@@ -67,3 +67,5 @@ INSERT INTO film_actor VALUES
 	(3, 6),
 	(4, 4)
 ;
+
+El que copia es puto Mariano - Copyright© 2022
