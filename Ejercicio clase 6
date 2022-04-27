@@ -1,0 +1,85 @@
+/*Hola teo*/
+
+use sakila;
+select first_name, last_name from actor a1
+where exists (select * from actor a2
+				where a1.last_name = a2.last_name
+				and a1.actor_id <> a2.actor_id)
+order by last_name;
+
+
+SELECT first_name, last_name
+    FROM actor a
+    WHERE NOT EXISTS(SELECT first_name, last_name
+                        FROM film_actor fa
+                        WHERE a.actor_id = fa.actor_id);
+
+
+SELECT first_name, last_name
+    FROM customer c
+    WHERE 1=(SELECT COUNT(*)
+                FROM rental r
+                WHERE c.customer_id = r.customer_id);					 
+
+
+SELECT first_name, last_name
+    FROM customer c
+    WHERE 1<(SELECT COUNT(*)
+                FROM rental r
+                WHERE c.customer_id = r.customer_id);
+
+
+SELECT last_name, first_name
+  FROM actor 
+ WHERE actor_id IN (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'BETRAYED REAR'))
+   or actor_id in (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'CATCH AMISTAD'));
+
+
+SELECT last_name, first_name
+  FROM actor 
+ WHERE actor_id IN (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'BETRAYED REAR'))
+   and actor_id not in (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'CATCH AMISTAD'));
+
+
+SELECT last_name, first_name
+  FROM actor 
+  WHERE actor_id IN (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'BETRAYED REAR'))
+   and actor_id in (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'CATCH AMISTAD'));
+
+
+SELECT last_name, first_name
+  FROM actor
+  WHERE actor_id not IN (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'BETRAYED REAR'))
+   and actor_id not in (SELECT actor_id 
+                         FROM film_actor 
+                        WHERE film_id in (SELECT film_id
+                        							from film
+                        							where title like 'CATCH AMISTAD'));
